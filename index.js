@@ -40,3 +40,24 @@ async function getNepseFeed() {
     }
 }
 
+const app = express()
+
+app.get("/api/livedata", async (req, res) => {
+    try {
+        const pricedata = await getNepseFeed()
+        return res.status(200).json(
+            { result: pricedata }
+        )
+    } catch (error) {
+        return res.status(500).json({
+            err: err.toString()
+        })
+    }
+}
+
+)
+
+app.listen(4000, function (err) {
+    if (err) console.log(nepse)
+    console.log("Server listening on Port", 4000);
+})
